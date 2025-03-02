@@ -4,14 +4,107 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>holland refs</title>
+        <style>
+            body {
+                background: linear-gradient(45deg, #0a0a1a, #1a1a2e);
+                color: #ffffff;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.02em;
+            }
+
+            .container {
+                background: rgba(13, 25, 48, 0.7);
+                border: 2px solid rgba(0, 157, 255, 0.2);
+                border-radius: 15px;
+                padding: 30px;
+                margin-top: 50px;
+                max-width: 600px;
+                width: 90%;
+                backdrop-filter: blur(5px);
+                box-shadow: 0 0 20px rgba(0, 157, 255, 0.1);
+            }
+
+            h3 {
+                font-size: 2.5em;
+                margin: 0;
+                background: linear-gradient(90deg, #ff6b00, #0095ff);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                font-weight: 700;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            }
+
+            h6 {
+                color: #0095ff;
+                font-size: 1em;
+                margin: 10px 0;
+                font-style: italic;
+                font-weight: 300;
+                letter-spacing: 0.1em;
+            }
+
+            h5 {
+                color: #ff6b00;
+                font-size: 1.2em;
+                margin: 20px 0;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                font-weight: 500;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 20px 0;
+            }
+
+            li {
+                margin: 10px 0;
+                font-size: 1.1em;
+                transition: transform 0.3s ease;
+            }
+
+            a {
+                color: #ffffff;
+                text-decoration: none;
+                padding: 8px 15px;
+                border: 1px solid rgba(0, 157, 255, 0.3);
+                border-radius: 20px;
+                display: inline-block;
+                transition: all 0.3s ease;
+                background: rgba(0, 157, 255, 0.1);
+                font-family: 'Courier New', Courier, monospace;
+                letter-spacing: 0.05em;
+                font-weight: 400;
+            }
+
+            a:hover {
+                background: rgba(255, 107, 0, 0.2);
+                transform: scale(1.05);
+                border-color: #ff6b00;
+                box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+            }
+        </style>
     </head>
-        <body>
+    <body>
+        <div class="container">
             <h3>sean (home)</h3>
             <h6>so that i don't forget</h6>
             <h5>stuff i like</h5>
-                <ul>
-                    <a href="./public/movies.html"><li>movies</li></a>
-                    <a href="./public/songs.html"><li>songs</li></a>
-                </ul>
-        </body>
+            <ul>
+                <li><a href="./public/movies.html">movies</a></li>
+                <li><a href="./public/songs.html">songs</a></li>
+            </ul>
+        </div>
+    </body>
 </html>

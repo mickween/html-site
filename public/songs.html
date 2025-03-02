@@ -3,23 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Songs I Like</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #0a0a1a, #1a1a2e);
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        .container {
+            background: rgba(13, 25, 48, 0.7);
+            border: 2px solid rgba(0, 157, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(0, 157, 255, 0.1);
+        }
+
+        h3 {
+            font-size: 2.5em;
+            margin: 0;
+            background: linear-gradient(90deg, #ff6b00, #0095ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #0095ff, #ff6b00, #0095ff);
+            margin: 20px 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        li {
+            margin: 10px 0;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .home-link {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid rgba(0, 157, 255, 0.3);
+            border-radius: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            background: rgba(0, 157, 255, 0.1);
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 0.05em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .home-link:hover {
+            background: rgba(255, 107, 0, 0.2);
+            transform: scale(1.05);
+            border-color: #ff6b00;
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .song-link {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid rgba(0, 157, 255, 0.3);
+            border-radius: 20px;
+            display: block;
+            transition: all 0.3s ease;
+            background: rgba(0, 157, 255, 0.1);
+            letter-spacing: 0.05em;
+            font-weight: 400;
+            width: 80%;
+            margin: 10px auto;
+        }
+
+        .song-link:hover {
+            background: rgba(255, 107, 0, 0.2);
+            transform: scale(1.05);
+            border-color: #ff6b00;
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <a href="../index.html">Home</a>
-
-    <h3>some songs i like</h3>
+    <div class="container">
+        <a href="../index.html" class="home-link">Home</a>
+        <h3>some songs i like</h3>
         <hr>
-            <ul>
-                <a href="https://www.youtube.com/watch?v=3oA8kt8685I&ab_channel=Latto"><li>Blick Sum</li></a>
-                <a href="https://www.youtube.com/watch?v=Hd2-Akz6Ht4&ab_channel=Flaxivo"><li>Notion Remix</li></a>
-                <a href="https://www.youtube.com/watch?v=9gDnGxcB0TU&ab_channel=MallGrab"><li>liverpool in rain</li></a>
-                <a href="https://www.youtube.com/watch?v=Q6J9oJ98WqY&ab_channel=THANKS"><li>can't</li></a>
-                <a href="https://www.youtube.com/watch?v=XARfntq4huY&ab_channel=Paxslim"><li>montreality african guy</li></a>
-                <a href="https://www.youtube.com/watch?v=4_OpFXwrkkQ&ab_channel=jonatanleandoer96"><li>wuthering heights</li></a>
-                <a href="https://www.youtube.com/watch?v=LOtkH5amC7s&ab_channel=PharrellWilliamsVEVO"><li>frontin</li></a>
-            
-            </ul>
-
+        <ul>
+            <li><a href="https://www.youtube.com/watch?v=3oA8kt8685I&ab_channel=Latto" class="song-link">Blick Sum</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Hd2-Akz6Ht4&ab_channel=Flaxivo" class="song-link">Notion Remix</a></li>
+            <li><a href="https://www.youtube.com/watch?v=9gDnGxcB0TU&ab_channel=MallGrab" class="song-link">liverpool in rain</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Q6J9oJ98WqY&ab_channel=THANKS" class="song-link">can't</a></li>
+            <li><a href="https://www.youtube.com/watch?v=XARfntq4huY&ab_channel=Paxslim" class="song-link">montreality african guy</a></li>
+            <li><a href="https://www.youtube.com/watch?v=4_OpFXwrkkQ&ab_channel=jonatanleandoer96" class="song-link">wuthering heights</a></li>
+            <li><a href="https://www.youtube.com/watch?v=LOtkH5amC7s&ab_channel=PharrellWilliamsVEVO" class="song-link">frontin</a></li>
+        </ul>
+    </div>
 </body>
 </html>
