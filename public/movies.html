@@ -69,6 +69,28 @@
             background: rgba(0, 157, 255, 0.1);
             letter-spacing: 0.05em;
             font-weight: 400;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        li:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(0, 149, 255, 0), 
+                rgba(255, 255, 255, 0.05), 
+                rgba(255, 107, 0, 0.05), 
+                rgba(255, 255, 255, 0.05), 
+                rgba(0, 149, 255, 0));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
         }
 
         li:hover {
@@ -76,6 +98,10 @@
             transform: scale(1.05);
             border-color: #ff6b00;
             box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+        }
+
+        li:hover:before {
+            opacity: 1;
         }
 
         a {
@@ -91,6 +117,27 @@
             letter-spacing: 0.05em;
             font-weight: 400;
             margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        a:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(0, 149, 255, 0), 
+                rgba(255, 255, 255, 0.05), 
+                rgba(255, 107, 0, 0.05), 
+                rgba(255, 255, 255, 0.05), 
+                rgba(0, 149, 255, 0));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
         }
 
         a:hover {
@@ -99,7 +146,63 @@
             border-color: #ff6b00;
             box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
         }
+
+        a:hover:before {
+            opacity: 1;
+        }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a');
+            const listItems = document.querySelectorAll('li');
+            
+            function handleMouseMove(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                
+                const xPercent = Math.round(x / rect.width * 100);
+                
+                // Create a subtle linear gradient based on mouse position
+                const gradientX = Math.max(0, Math.min(100, xPercent - 10));
+                const gradientWidth = 20; // Width of the shimmer in percent
+                
+                const style = document.createElement('style');
+                const selector = this.tagName.toLowerCase();
+                
+                style.textContent = `
+                    ${selector}:hover:before {
+                        background: linear-gradient(
+                            90deg,
+                            rgba(0, 149, 255, 0) 0%,
+                            rgba(0, 149, 255, 0) ${gradientX}%,
+                            rgba(255, 255, 255, 0.1) ${gradientX + gradientWidth/2}%,
+                            rgba(0, 149, 255, 0) ${gradientX + gradientWidth}%,
+                            rgba(0, 149, 255, 0) 100%
+                        ) !important;
+                    }
+                `;
+                
+                // Remove any previous style
+                const prevStyleId = `shimmer-style-${selector}`;
+                const prevStyle = document.getElementById(prevStyleId);
+                if (prevStyle) {
+                    prevStyle.remove();
+                }
+                
+                // Add the new style
+                style.id = prevStyleId;
+                document.head.appendChild(style);
+            }
+            
+            links.forEach(link => {
+                link.addEventListener('mousemove', handleMouseMove);
+            });
+            
+            listItems.forEach(item => {
+                item.addEventListener('mousemove', handleMouseMove);
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
