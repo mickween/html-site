@@ -128,6 +128,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            cursor: pointer;
         }
 
         .song-link:before {
@@ -158,11 +159,73 @@
         .song-link:hover:before {
             opacity: 1;
         }
+
+        .video-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, margin 0.5s ease-in-out;
+            margin: 0 auto;
+            width: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container.active {
+            max-height: 315px;
+            margin: 15px auto;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 315px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .song-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 107, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .video-container.active + .close-btn {
+            opacity: 1;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('a');
+            const links = document.querySelectorAll('a.song-link');
             
+            // Function to extract YouTube video ID from URL
+            function getYoutubeId(url) {
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[2].length === 11) ? match[2] : null;
+            }
+            
+            // Handle shimmer effect
             function handleMouseMove(e) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -201,8 +264,95 @@
                 document.head.appendChild(style);
             }
             
-            links.forEach(link => {
+            // Add shimmer effect to all links
+            document.querySelectorAll('a').forEach(link => {
                 link.addEventListener('mousemove', handleMouseMove);
+            });
+            
+            // Process each song link
+            links.forEach(link => {
+                // Get the original href
+                const href = link.getAttribute('href');
+                const videoId = getYoutubeId(href);
+                
+                // Create a container for the song item
+                const songItem = document.createElement('div');
+                songItem.className = 'song-item';
+                link.parentNode.insertBefore(songItem, link);
+                songItem.appendChild(link);
+                
+                // Create video container
+                const videoContainer = document.createElement('div');
+                videoContainer.className = 'video-container';
+                
+                // Create iframe for YouTube embed
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?rel=0`);
+                iframe.setAttribute('title', link.textContent);
+                
+                videoContainer.appendChild(iframe);
+                songItem.appendChild(videoContainer);
+                
+                // Create close button
+                const closeBtn = document.createElement('div');
+                closeBtn.className = 'close-btn';
+                closeBtn.innerHTML = '×';
+                songItem.appendChild(closeBtn);
+                
+                // Handle click on song link
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close any other open videos and stop them from playing
+                    document.querySelectorAll('.video-container.active').forEach(container => {
+                        if (container !== videoContainer) {
+                            // Get the iframe inside this container
+                            const iframe = container.querySelector('iframe');
+                            // Reset the src to stop the video
+                            const currentSrc = iframe.getAttribute('src');
+                            iframe.setAttribute('src', '');
+                            // Small delay before removing active class for smoother transition
+                            setTimeout(() => {
+                                container.classList.remove('active');
+                                // Restore the src but without autoplay
+                                setTimeout(() => {
+                                    iframe.setAttribute('src', currentSrc);
+                                }, 300);
+                            }, 50);
+                        }
+                    });
+                    
+                    // Toggle this video
+                    videoContainer.classList.toggle('active');
+                    
+                    // If we're closing this video, stop it from playing too
+                    if (!videoContainer.classList.contains('active')) {
+                        const iframe = videoContainer.querySelector('iframe');
+                        const currentSrc = iframe.getAttribute('src');
+                        iframe.setAttribute('src', '');
+                        setTimeout(() => {
+                            iframe.setAttribute('src', currentSrc);
+                        }, 300);
+                    }
+                });
+                
+                // Handle close button click
+                closeBtn.addEventListener('click', function() {
+                    // Stop the video from playing
+                    const iframe = videoContainer.querySelector('iframe');
+                    const currentSrc = iframe.getAttribute('src');
+                    iframe.setAttribute('src', '');
+                    
+                    // Remove active class
+                    videoContainer.classList.remove('active');
+                    
+                    // Restore the src but without autoplay
+                    setTimeout(() => {
+                        iframe.setAttribute('src', currentSrc);
+                    }, 300);
+                });
             });
         });
     </script>

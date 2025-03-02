@@ -3,177 +3,433 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>holland refs</title>
+        <title>sean.exe</title>
         <style>
-            body {
-                background: linear-gradient(45deg, #0a0a1a, #1a1a2e);
-                color: #ffffff;
-                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+            
+            :root {
+                --neon-pink: #ff00ff;
+                --neon-blue: #00ffff;
+                --neon-green: #00ff00;
+                --dark-void: #000000;
+            }
+            
+            * {
                 margin: 0;
-                padding: 20px;
-                min-height: 100vh;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                background-color: var(--dark-void);
+                color: white;
+                font-family: 'Space Mono', monospace;
+                overflow-x: hidden;
+                cursor: none;
+                height: 100vh;
+                width: 100vw;
+                perspective: 1000px;
+            }
+            
+            #custom-cursor {
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: var(--neon-pink);
+                mix-blend-mode: difference;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+                transition: transform 0.1s ease;
+                box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink);
+            }
+            
+            #cursor-trail {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 9998;
+            }
+            
+            .container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotateX(10deg) rotateY(0deg);
+                transform-style: preserve-3d;
+                width: 80vw;
+                max-width: 800px;
+                height: 80vh;
+                max-height: 600px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                text-align: center;
-                letter-spacing: 0.02em;
-            }
-
-            .container {
-                background: rgba(13, 25, 48, 0.7);
-                border: 2px solid rgba(0, 157, 255, 0.2);
-                border-radius: 15px;
-                padding: 30px;
-                margin-top: 50px;
-                max-width: 600px;
-                width: 90%;
-                backdrop-filter: blur(5px);
-                box-shadow: 0 0 20px rgba(0, 157, 255, 0.1);
-            }
-
-            h3 {
-                font-size: 2.5em;
-                margin: 0;
-                background: linear-gradient(90deg, #ff6b00, #0095ff);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-                text-transform: uppercase;
-                letter-spacing: 0.15em;
-                font-weight: 700;
-                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            }
-
-            h6 {
-                color: #0095ff;
-                font-size: 1em;
-                margin: 10px 0;
-                font-style: italic;
-                font-weight: 300;
-                letter-spacing: 0.1em;
-            }
-
-            h5 {
-                color: #ff6b00;
-                font-size: 1.2em;
-                margin: 20px 0;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                font-weight: 500;
-            }
-
-            ul {
-                list-style: none;
-                padding: 0;
-                margin: 20px 0;
-            }
-
-            li {
-                margin: 10px 0;
-                font-size: 1.1em;
-                transition: transform 0.3s ease;
-            }
-
-            a {
-                color: #ffffff;
-                text-decoration: none;
-                padding: 8px 15px;
-                border: 1px solid rgba(0, 157, 255, 0.3);
-                border-radius: 20px;
-                display: inline-block;
-                transition: all 0.3s ease;
-                background: rgba(0, 157, 255, 0.1);
-                font-family: 'Courier New', Courier, monospace;
-                letter-spacing: 0.05em;
-                font-weight: 400;
-                position: relative;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.7);
+                border: 2px solid var(--neon-blue);
+                border-radius: 5px;
+                box-shadow: 0 0 30px var(--neon-blue), inset 0 0 20px var(--neon-blue);
+                padding: 40px;
+                transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                animation: float 10s infinite ease-in-out;
                 overflow: hidden;
-                z-index: 1;
             }
-
-            a:before {
-                content: '';
+            
+            @keyframes float {
+                0%, 100% { transform: translate(-50%, -50%) rotateX(10deg) rotateY(0deg); }
+                25% { transform: translate(-50%, -50%) rotateX(5deg) rotateY(5deg); }
+                50% { transform: translate(-50%, -50%) rotateX(15deg) rotateY(-5deg); }
+                75% { transform: translate(-50%, -50%) rotateX(5deg) rotateY(-10deg); }
+            }
+            
+            .glitch-container {
+                position: relative;
+                margin-bottom: 30px;
+            }
+            
+            h3 {
+                font-size: 4rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                color: white;
+                position: relative;
+                animation: textShadow 2s infinite alternate;
+            }
+            
+            @keyframes textShadow {
+                0% { text-shadow: -2px 0 var(--neon-pink), 2px 0 var(--neon-blue); }
+                25% { text-shadow: -2px 0 var(--neon-blue), 2px 0 var(--neon-green); }
+                50% { text-shadow: -2px 0 var(--neon-green), 2px 0 var(--neon-pink); }
+                75% { text-shadow: -2px 0 var(--neon-blue), 2px 0 var(--neon-green); }
+                100% { text-shadow: -2px 0 var(--neon-pink), 2px 0 var(--neon-blue); }
+            }
+            
+            .glitch-text {
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
+                opacity: 0.8;
+            }
+            
+            .glitch-text:nth-child(2) {
+                color: var(--neon-pink);
+                animation: glitch-1 2.5s infinite;
+            }
+            
+            .glitch-text:nth-child(3) {
+                color: var(--neon-blue);
+                animation: glitch-2 3.5s infinite;
+            }
+            
+            @keyframes glitch-1 {
+                0%, 100% { transform: translate(0); }
+                20% { transform: translate(-5px, 5px); }
+                40% { transform: translate(-5px, -5px); }
+                60% { transform: translate(5px, 5px); }
+                80% { transform: translate(5px, -5px); }
+            }
+            
+            @keyframes glitch-2 {
+                0%, 100% { transform: translate(0); }
+                20% { transform: translate(5px, -5px); }
+                40% { transform: translate(5px, 5px); }
+                60% { transform: translate(-5px, -5px); }
+                80% { transform: translate(-5px, 5px); }
+            }
+            
+            h6 {
+                font-size: 1rem;
+                color: var(--neon-green);
+                margin: 10px 0 30px;
+                font-style: italic;
+                text-shadow: 0 0 5px var(--neon-green);
+                animation: pulse 4s infinite;
+            }
+            
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.5; }
+            }
+            
+            h5 {
+                color: var(--neon-pink);
+                font-size: 1.5rem;
+                margin: 20px 0;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                text-shadow: 0 0 5px var(--neon-pink);
+            }
+            
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 20px 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            
+            li {
+                margin: 10px 0;
+                width: 100%;
+                max-width: 300px;
+                position: relative;
+            }
+            
+            a {
+                color: white;
+                text-decoration: none;
+                padding: 12px 20px;
+                border: 1px solid var(--neon-blue);
+                border-radius: 4px;
+                display: block;
+                transition: all 0.3s ease;
+                background: rgba(0, 0, 0, 0.5);
+                font-family: 'Space Mono', monospace;
+                letter-spacing: 0.1em;
+                font-weight: 400;
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                text-align: center;
+                text-shadow: 0 0 5px white;
+                box-shadow: 0 0 10px var(--neon-blue), inset 0 0 5px var(--neon-blue);
+            }
+            
+            a:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
                 background: linear-gradient(90deg, 
-                    rgba(0, 149, 255, 0), 
-                    rgba(255, 255, 255, 0.05), 
-                    rgba(255, 107, 0, 0.05), 
-                    rgba(255, 255, 255, 0.05), 
-                    rgba(0, 149, 255, 0));
-                opacity: 0;
+                    transparent, 
+                    rgba(255, 255, 255, 0.2), 
+                    transparent);
+                transition: left 0.7s ease;
                 z-index: -1;
-                transition: opacity 0.3s ease;
             }
-
+            
             a:hover {
-                background: rgba(255, 107, 0, 0.2);
-                transform: scale(1.05);
-                border-color: #ff6b00;
-                box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+                transform: scale(1.05) translateY(-5px);
+                box-shadow: 0 5px 20px var(--neon-blue), inset 0 0 10px var(--neon-blue);
+                text-shadow: 0 0 10px white;
             }
-
+            
             a:hover:before {
-                opacity: 1;
+                left: 100%;
+            }
+            
+            .scanline {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, 
+                    transparent 50%, 
+                    rgba(0, 255, 255, 0.02) 50%, 
+                    rgba(0, 255, 255, 0.04) 100%);
+                background-size: 100% 4px;
+                z-index: 9997;
+                pointer-events: none;
+                animation: scanline 10s linear infinite;
+            }
+            
+            @keyframes scanline {
+                0% { background-position: 0 0; }
+                100% { background-position: 0 100%; }
+            }
+            
+            .noise {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('data:image/png;base64,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');
+                opacity: 0.03;
+                z-index: 9996;
+                pointer-events: none;
+                animation: noise 0.5s steps(2) infinite;
+            }
+            
+            @keyframes noise {
+                0%, 100% { background-position: 0 0; }
+                10% { background-position: -5% -10%; }
+                20% { background-position: -15% 5%; }
+                30% { background-position: 7% -25%; }
+                40% { background-position: 20% 25%; }
+                50% { background-position: -25% 10%; }
+                60% { background-position: 15% 5%; }
+                70% { background-position: 0% 15%; }
+                80% { background-position: 25% 35%; }
+                90% { background-position: -10% 10%; }
+            }
+            
+            .vignette {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
+                z-index: 9995;
+                pointer-events: none;
+            }
+            
+            .crt-lines {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+                z-index: 9994;
+                pointer-events: none;
+            }
+            
+            @media (max-width: 768px) {
+                h3 {
+                    font-size: 2.5rem;
+                }
+                
+                .container {
+                    width: 90vw;
+                    height: 90vh;
+                    padding: 20px;
+                }
             }
         </style>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const links = document.querySelectorAll('a');
-                
-                links.forEach(link => {
-                    link.addEventListener('mousemove', function(e) {
-                        const rect = this.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        const xPercent = Math.round(x / rect.width * 100);
-                        const yPercent = Math.round(y / rect.height * 100);
-                        
-                        // Create a subtle linear gradient based on mouse position
-                        const gradientX = Math.max(0, Math.min(100, xPercent - 10));
-                        const gradientWidth = 20; // Width of the shimmer in percent
-                        
-                        const style = document.createElement('style');
-                        style.textContent = `
-                            a:hover:before {
-                                background: linear-gradient(
-                                    90deg,
-                                    rgba(0, 149, 255, 0) 0%,
-                                    rgba(0, 149, 255, 0) ${gradientX}%,
-                                    rgba(255, 255, 255, 0.1) ${gradientX + gradientWidth/2}%,
-                                    rgba(0, 149, 255, 0) ${gradientX + gradientWidth}%,
-                                    rgba(0, 149, 255, 0) 100%
-                                ) !important;
-                            }
-                        `;
-                        
-                        // Remove any previous style
-                        const prevStyle = document.getElementById('shimmer-style');
-                        if (prevStyle) {
-                            prevStyle.remove();
-                        }
-                        
-                        // Add the new style
-                        style.id = 'shimmer-style';
-                        document.head.appendChild(style);
-                    });
-                });
-            });
-        </script>
     </head>
     <body>
+        <div id="custom-cursor"></div>
+        <div id="cursor-trail"></div>
+        <div class="scanline"></div>
+        <div class="noise"></div>
+        <div class="vignette"></div>
+        <div class="crt-lines"></div>
+        
         <div class="container">
-            <h3>sean (home)</h3>
-            <h6>so that i don't forget</h6>
-            <h5>stuff i like</h5>
+            <div class="glitch-container">
+                <h3>sean.exe</h3>
+                <h3 class="glitch-text">sean.exe</h3>
+                <h3 class="glitch-text">sean.exe</h3>
+            </div>
+            <h6>system.memory.dump()</h6>
+            <h5>neural.links()</h5>
             <ul>
-                <li><a href="./public/movies.html">movies</a></li>
-                <li><a href="./public/songs.html">songs</a></li>
+                <li><a href="./public/movies.html" class="nav-link">movies.dat</a></li>
+                <li><a href="./public/songs.html" class="nav-link">songs.dat</a></li>
             </ul>
         </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Custom cursor
+                const cursor = document.getElementById('custom-cursor');
+                const cursorTrail = document.getElementById('cursor-trail');
+                const container = document.querySelector('.container');
+                const links = document.querySelectorAll('a');
+                
+                // Create cursor trail elements
+                const trailCount = 10;
+                const trails = [];
+                
+                for (let i = 0; i < trailCount; i++) {
+                    const trail = document.createElement('div');
+                    trail.className = 'trail';
+                    trail.style.position = 'absolute';
+                    trail.style.width = `${10 - i * 0.5}px`;
+                    trail.style.height = `${10 - i * 0.5}px`;
+                    trail.style.borderRadius = '50%';
+                    trail.style.backgroundColor = `rgba(${255 - i * 25}, 0, ${255 - i * 25}, ${0.5 - i * 0.05})`;
+                    trail.style.zIndex = 9998 - i;
+                    trail.style.transform = 'translate(-50%, -50%)';
+                    trail.style.pointerEvents = 'none';
+                    cursorTrail.appendChild(trail);
+                    trails.push({
+                        element: trail,
+                        x: 0,
+                        y: 0
+                    });
+                }
+                
+                // Update cursor position
+                document.addEventListener('mousemove', function(e) {
+                    cursor.style.left = `${e.clientX}px`;
+                    cursor.style.top = `${e.clientY}px`;
+                    
+                    // Update container rotation based on cursor position
+                    const xAxis = (window.innerWidth / 2 - e.clientX) / 25;
+                    const yAxis = (window.innerHeight / 2 - e.clientY) / 25;
+                    container.style.transform = `translate(-50%, -50%) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+                    
+                    // Update trail positions with delay
+                    setTimeout(() => {
+                        trails[0].x = e.clientX;
+                        trails[0].y = e.clientY;
+                        
+                        for (let i = 1; i < trails.length; i++) {
+                            trails[i].x = trails[i-1].x;
+                            trails[i].y = trails[i-1].y;
+                        }
+                        
+                        trails.forEach((trail, index) => {
+                            trail.element.style.left = `${trail.x}px`;
+                            trail.element.style.top = `${trail.y}px`;
+                        });
+                    }, 50);
+                });
+                
+                // Change cursor appearance on links
+                links.forEach(link => {
+                    link.addEventListener('mouseenter', function() {
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                        cursor.style.backgroundColor = 'var(--neon-blue)';
+                        cursor.style.mixBlendMode = 'screen';
+                    });
+                    
+                    link.addEventListener('mouseleave', function() {
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                        cursor.style.backgroundColor = 'var(--neon-pink)';
+                        cursor.style.mixBlendMode = 'difference';
+                    });
+                });
+                
+                // Random glitch effect
+                setInterval(() => {
+                    if (Math.random() > 0.95) {
+                        container.style.transform = `translate(-50%, -50%) rotateX(${Math.random() * 20 - 10}deg) rotateY(${Math.random() * 20 - 10}deg)`;
+                        container.style.boxShadow = `0 0 30px var(--neon-pink), inset 0 0 20px var(--neon-pink)`;
+                        
+                        setTimeout(() => {
+                            container.style.boxShadow = `0 0 30px var(--neon-blue), inset 0 0 20px var(--neon-blue)`;
+                        }, 100);
+                        
+                        setTimeout(() => {
+                            const xAxis = (window.innerWidth / 2 - parseFloat(cursor.style.left)) / 25;
+                            const yAxis = (window.innerHeight / 2 - parseFloat(cursor.style.top)) / 25;
+                            container.style.transform = `translate(-50%, -50%) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+                        }, 200);
+                    }
+                }, 2000);
+            });
+        </script>
     </body>
 </html>
